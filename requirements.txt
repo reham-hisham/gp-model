@@ -1,0 +1,10 @@
+spacy==2.3.8
+fastapi
+uvicorn
+nltk
+pyresparser
+python-docx
+pandas
+scikit-learn
+cloudinary
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz
