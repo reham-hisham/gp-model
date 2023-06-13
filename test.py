@@ -69,17 +69,18 @@ async def testing_resumes(testingdata : Request):
         print(user)
         try:
             doc = Document()
-          
-            with open(user, 'r') as file:
+            cvfile =  download_cv(user["public_id"], user['_id']+".pdf")
+
+            with open(cvfile, 'r') as file:
                 doc.add_paragraph(str(file.read()))
             doc.save("text.docx")
             data = ResumeParser('text.docx').get_extracted_data()
-            resume_skills[user] = data['skills']
+            resume_skills[cvfile] = data['skills']
             print("hna 3")
 
         except: 
-            data = ResumeParser(user).get_extracted_data()
-            resume_skills[user] = data['skills']
+            data = ResumeParser(cvfile).get_extracted_data()
+            resume_skills[cvfile] = data['skills']
             
             
             
@@ -159,7 +160,7 @@ async def testing_resumes(testingdata : Request):
     # "analyzer" (a function that is applied to each document to extract the features)
     
     # Load the saved model using joblib
-    print(os.getcwd())
+    file = download_cv(body["model"]["secure_url"] , "saved_model.joblib" )
     nbrs = joblib.load(r"saved_model.joblib")
     
     
